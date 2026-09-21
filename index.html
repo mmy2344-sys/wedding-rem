@@ -78,7 +78,7 @@
    2. BASE
    ════════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:inherit;margin:0}
-html{height:100%;-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+html{height:100%;font-size:clamp(16px,4.2vw,20px);-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{height:100%;overflow:hidden;background:var(--scene-b);color:var(--ink);font-family:var(--f-sans);
   -webkit-font-smoothing:antialiased;touch-action:manipulation;overscroll-behavior:none}
 button,input,textarea{font:inherit;color:inherit}
@@ -110,9 +110,9 @@ body.is-loading .scene{visibility:hidden}
   .scene:not(.is-opening) .env-hover:hover{transform:translateY(-5px) scale(1.022)}
 }
 
-.env-wrap{--env-w:min(86vw,420px);position:relative;width:var(--env-w);height:calc(var(--env-w)*.72);
+.env-wrap{--env-w:min(90vw,34rem);position:relative;width:var(--env-w);height:calc(var(--env-w)*.72);
   cursor:pointer;border-radius:4px;-webkit-tap-highlight-color:transparent}
-@supports (height:1dvh){ .env-wrap{--env-w:min(86vw,420px,calc(40dvh*1.39))} }
+@supports (height:1dvh){ .env-wrap{--env-w:min(90vw,34rem,calc(44dvh*1.39))} }
 .env-wrap:focus-visible{outline-offset:10px}
 
 .env-part{position:absolute;inset:0;pointer-events:none}
@@ -132,7 +132,7 @@ body.is-loading .scene{visibility:hidden}
 
 /* card — נחתך בתחתית המעטפה עד שהוא יוצא */
 .card-window{z-index:3;clip-path:inset(-300% -30% 0 -30%)}
-.card{position:absolute;left:8%;top:6%;width:84%;aspect-ratio:5/7;background:var(--sheet-bg);border-radius:3px;
+.card{position:absolute;left:6%;top:6%;width:88%;aspect-ratio:5/7;background:var(--sheet-bg);border-radius:3px;
   box-shadow:0 1px 2px rgba(var(--shadow),.22),0 10px 26px -12px rgba(var(--shadow),.5);will-change:transform}
 .card::before{content:"";position:absolute;inset:3.4%;border:1px solid var(--line);pointer-events:none}
 .card-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
@@ -215,7 +215,7 @@ body.is-loading .scene{visibility:hidden}
 .scroll{position:absolute;inset:0;z-index:2;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
 .scroll::-webkit-scrollbar{display:none}
-.wrap{width:min(100% - 64px,440px);margin-inline:auto}
+.wrap{width:min(100% - 64px,27.5rem);margin-inline:auto}
 .sec{padding:clamp(56px,11dvh,96px) 0;text-align:center;position:relative}
 .sec-title{font:400 2rem/1.4 var(--f-serif);color:var(--ink);margin-bottom:8px}
 .sec-sub{font:300 1rem/1.7 var(--f-sans);color:var(--ink-soft)}
@@ -223,7 +223,7 @@ body.is-loading .scene{visibility:hidden}
 
 /* hero */
 .hero{position:relative;min-height:100%;display:grid;place-items:center;text-align:center;
-  padding:calc(env(safe-area-inset-top,0px) + 72px) 0 calc(env(safe-area-inset-bottom,0px) + 84px)}
+  padding:calc(env(safe-area-inset-top,0px) + 72px) 0 calc(env(safe-area-inset-bottom,0px) + 130px)}
 .hero-inner{display:flex;flex-direction:column;align-items:center}
 .hero .kind{margin-top:20px;font:400 1.7rem/1.5 var(--f-serif);color:var(--gold-deep)}
 .names{margin:.16em 0 .1em;display:flex;flex-direction:column;align-items:center;
@@ -232,10 +232,12 @@ body.is-loading .scene{visibility:hidden}
 .names.is-single{font-size:clamp(4.8rem,min(36vw,20dvh),9.5rem);line-height:1.3;margin:.12em 0 .06em}
 .hero-date{display:flex;align-items:center;gap:16px;margin-top:22px;font:400 1.15rem/1 var(--f-latin);letter-spacing:.24em;color:var(--ink-soft)}
 .hero-date::before,.hero-date::after{content:"";width:34px;height:1px;background:var(--line)}
-.cue{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);translate:-50% 0;
-  display:flex;flex-direction:column;align-items:center;gap:8px;font:300 .85rem/1 var(--f-sans);color:var(--ink-soft)}
-.cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold),transparent);transform-origin:top;animation:cue 2.4s ease-in-out infinite}
-@keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.cue{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 30px);translate:-50% 0;padding:10px 24px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;font:400 1.4rem/1.4 var(--f-serif);color:var(--gold-deep)}
+.cue-arrows{width:32px;height:32px;fill:none;stroke:var(--gold);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.cue-arrows path{animation:cue-arrow 1.9s ease-in-out infinite}
+.cue-arrows path:nth-child(2){animation-delay:.28s}
+@keyframes cue-arrow{0%{opacity:.2;transform:translateY(-3px)}50%{opacity:1;transform:translateY(2px)}100%{opacity:.2;transform:translateY(6px)}}
 
 /* details */
 .lead{font:400 1.5rem/2 var(--f-serif);color:var(--ink);max-width:19em;margin-inline:auto}
@@ -280,7 +282,7 @@ body.is-loading .scene{visibility:hidden}
 
 /* gallery */
 .gallery{display:flex;gap:14px;margin-top:30px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
-  padding-inline:calc((100% - min(100% - 64px,440px))/2);scroll-padding-inline:calc((100% - min(100% - 64px,440px))/2)}
+  padding-inline:calc((100% - min(100% - 64px,27.5rem))/2);scroll-padding-inline:calc((100% - min(100% - 64px,27.5rem))/2)}
 .gallery::-webkit-scrollbar{display:none}
 .tile{flex:0 0 min(66vw,270px);aspect-ratio:3/4;scroll-snap-align:center;overflow:hidden;border-radius:999px 999px 6px 6px;background:var(--paper-deep)}
 .tile img{width:100%;height:100%;object-fit:cover;display:block}
@@ -347,13 +349,13 @@ body.is-loading .sound{opacity:0}
 @media (max-height:560px){
   .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:calc(env(safe-area-inset-top,0px) + 40px);padding-bottom:40px}
   .cue{position:static;translate:none;margin-top:18px}
-  .cue::after{height:22px}
   .hero-date{margin-top:14px}
   .sec{padding:56px 0}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .seal-shine::after,.seal-ring,.hint,.sheet-glow,.pin-pulse,.cue::after{animation:none}
+  .seal-shine::after,.seal-ring,.hint,.sheet-glow,.pin-pulse{animation:none}
+  .cue-arrows path{animation:none;opacity:1}
   .js-reveal [data-reveal]{transition:none}
 }
 </style>
@@ -461,7 +463,10 @@ body.is-loading .sound{opacity:0}
         <h1 class="names" id="heroNames"></h1>
         <p class="hero-date" data-hero data-bind="date.short"></p>
       </div>
-      <button class="cue" type="button" data-hero data-scroll-to="details"><span data-bind="texts.scrollCue"></span></button>
+      <button class="cue" type="button" data-hero data-scroll-to="details">
+        <span data-bind="texts.scrollCue"></span>
+        <svg class="cue-arrows" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5l7 7 7-7"/><path d="M5 12.5l7 7 7-7"/></svg>
+      </button>
     </section>
 
     <!-- details -->
@@ -828,8 +833,8 @@ const Content = (() => {
     const blob = blobPath(50, 50, 44, 16, 2.4);
     const font = `font-family:var(--f-serif);font-weight:500`;
     const letters = ini.length === 1
-      ? `<g style="${font}" text-anchor="middle" font-size="42">
-           <text x="50.7" y="65.2" fill="rgba(255,240,244,.55)">${ini[0]}</text>
+      ? `<g class="seal-letter" style="${font}" text-anchor="middle" font-size="42">
+           <text x="50.4" y="64.9" fill="rgba(255,240,244,.55)">${ini[0]}</text>
            <text x="50" y="64.5" style="fill:var(--gold-darkest)">${ini[0]}</text>
          </g>`
       : `<g style="${font}" text-anchor="middle" font-size="27">
@@ -845,6 +850,24 @@ const Content = (() => {
       ${letters}
       <path d="${blob}" fill="url(#gShine)" opacity=".55"/>
     </svg>`;
+  }
+
+  /* אות יחידה בחותמת: מודדים את הדיו האמיתי של האות (canvas, לא תיבת ה-em), ממרכזים ומגדילים כך שהאות תמלא את הטבעת.
+     כך אות קצרה כמו ر לא נראית כפסיק, וכל אות שתבחרו תעבוד. */
+  function fitSeal() {
+    const ini = CONFIG.seal.initials; if (ini.length !== 1) return;
+    const fam = getComputedStyle(document.documentElement).getPropertyValue('--f-serif').trim() || 'serif';
+    const c = document.createElement('canvas').getContext('2d');
+    c.font = `500 100px ${fam}`; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    const m = c.measureText(ini[0]), f = 42 / 100;                  // 42 = font-size של האות ב-SVG
+    const w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) * f;
+    const h = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) * f;
+    if (!w || !h) return;
+    const dx = (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2 * f;   // מרכז הדיו ביחס לנקודת העיגון
+    const dy = (m.actualBoundingBoxDescent - m.actualBoundingBoxAscent) / 2 * f;
+    const k = Math.min(3, 34 / Math.max(w, h));
+    $$('#sealA .seal-letter, #sealB .seal-letter').forEach(g =>
+      g.setAttribute('transform', `translate(50 50) scale(${k}) translate(${-(50 + dx)} ${-(64.5 + dy)})`));
   }
 
   /* תמונות זמניות לגלריה — קומפוזיציות מופשטות בצבעי הנושא */
@@ -936,10 +959,11 @@ const Content = (() => {
     const svg = sealSVG();
     $('#sealA').innerHTML = svg;
     $('#sealB').innerHTML = svg;
+    fitSeal();
     buildGallery();
     buildLinks();
   }
-  return { render, view };
+  return { render, view, fitSeal };
 })();
 
 
@@ -1059,7 +1083,8 @@ const Envelope = (() => {
   function measure() {
     const vw = el.scene.clientWidth, vh = el.scene.clientHeight;
     const H = el.wrap.offsetHeight;
-    const cardH = el.card.offsetHeight, cardTop0 = el.card.offsetTop;
+    const cardH = el.card.offsetHeight, cardW = el.card.offsetWidth, cardTop0 = el.card.offsetTop;
+    const cardScale = Math.max(1, Math.min(1.12, (vh * .9) / cardH, (vw * .94) / cardW));   // הכרטיס "מתקרב" למסך
     const Etop = (vh - H) / 2;
     const Cf = vh * .47;                                  // מרכז הכרטיס בסוף
     const R = cardH * .74;                                // כמה הכרטיס עולה מהמעטפה בשלב הראשון
@@ -1067,8 +1092,8 @@ const Envelope = (() => {
     const Cy = H / 2;
     const shift = Cf - Etop - Cy - (cardTop0 - R + cardH / 2 - Cy) * s;
     const cardFinalY = Cf - (Etop + cardTop0 + cardH / 2);
-    const D = Math.max(H * 1.25, Cf + cardH / 2 + 18 - Etop);
-    return { vw, vh, R, s, shift, cardFinalY, D };
+    const D = Math.max(H * 1.25, Cf + (cardH * cardScale) / 2 + 18 - Etop);
+    return { vw, vh, R, s, shift, cardFinalY, cardScale, D };
   }
 
   function crumbs() {
@@ -1130,7 +1155,7 @@ const Envelope = (() => {
       .to(parts, { y: m.D, duration: 1.05, ease: 'power2.in' }, 3.05)
       .to(parts, { autoAlpha: 0, duration: .3, ease: 'power1.in' }, 3.75)
       .to(el.wrap, { y: 0, rotationX: 0, scale: 1, duration: 1.05, ease: 'power3.inOut' }, 3.05)
-      .to(el.card, { y: m.cardFinalY, duration: 1.05, ease: 'power3.inOut' }, 3.05)
+      .to(el.card, { y: m.cardFinalY, scale: m.cardScale, duration: 1.05, ease: 'power3.inOut' }, 3.05)
       .to(el.glow, { autoAlpha: 0, duration: .6 }, 3.3)
       .call(reveal, null, 4.05);
   }
@@ -1189,7 +1214,7 @@ const Envelope = (() => {
     el.wrap.addEventListener('click', go);
     el.wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') go(e); });
     (document.fonts && document.fonts.ready ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1600))]) : Promise.resolve())
-      .then(intro);
+      .then(() => { Content.fitSeal(); intro(); });
   }
   return { init };
 })();
