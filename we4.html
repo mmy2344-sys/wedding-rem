@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6e1e2">
+<title>دعوة إلى ليلة حنّاء ريم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tajawal:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   1. TOKENS — צבעים, גופנים, תנועה.
+      את הצבעים משנים ב-CONFIG.theme.colors (בסקריפט), לא כאן.
+   ════════════════════════════════════════════════════════════════ */
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+
+  /* palette */
+  --paper:#fdf4f3;  --paper-deep:#f6e1e2;  --ivory:#fffbfa;
+  --gold:#bf6f82;   --gold-light:#e9b9c2;  --gold-deep:#96475b;  --gold-darkest:#6f2f40;   /* "gold" = צבע ההדגשה (כאן: ורוד עתיק) */
+  --ink:#43262e;    --ink-soft:#86656c;
+
+  /* surfaces (מתחלפים במצב כהה) */
+  --scene-a:var(--ivory);
+  --scene-b:var(--paper-deep);
+  --sheet-bg:var(--ivory);
+  --line:rgba(191,111,130,.45);
+  --line-soft:rgba(191,111,130,.22);
+  --glow:rgba(233,185,194,.34);
+  --shadow:74,38,50;
+  --accent-shadow:rgba(150,71,91,.62);
+
+  /* envelope (נגזרים מהפלטה) */
+  --env-left:#f7e9e8; --env-right:#f2e0df; --env-bottom:#fffbfa; --env-flap:#fbeeed;
+  --env-liner:#ecd2d5; --env-lattice:rgba(191,111,130,.16); --env-edge:#efc5cc;
+
+  /* type */
+  --f-serif:'Amiri','Noto Naskh Arabic','Traditional Arabic','Times New Roman',serif;
+  --f-latin:'Cormorant Garamond','Amiri',Georgia,serif;
+  --f-sans:'Tajawal','Noto Sans Arabic','Segoe UI',Arial,sans-serif;
+
+  --amp-font:var(--f-serif); --amp-style:normal;
+  --ease-out:cubic-bezier(.22,.61,.36,1);
+  --noise:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .30 0 0 0 0 .16 0 0 0 0 .21 0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+@supports (color:color-mix(in srgb,red,blue)){
+  :root{
+    --line:color-mix(in srgb,var(--gold) 45%,transparent);
+    --line-soft:color-mix(in srgb,var(--gold) 22%,transparent);
+    --glow:color-mix(in srgb,var(--gold-light) 34%,transparent);
+    --gold-darkest:color-mix(in srgb,var(--gold-deep) 72%,#000);
+    --env-left:color-mix(in srgb,var(--paper) 93%,var(--gold-deep));
+    --env-right:color-mix(in srgb,var(--paper) 89%,var(--gold-deep));
+    --env-bottom:var(--ivory);
+    --env-flap:color-mix(in srgb,var(--paper) 96%,var(--gold-deep));
+    --env-liner:color-mix(in srgb,var(--paper-deep) 84%,var(--gold));
+    --env-lattice:color-mix(in srgb,var(--gold) 16%,transparent);
+    --env-edge:color-mix(in srgb,var(--gold-light) 70%,var(--paper));
+  }
+}
+/* מצב כהה — פעיל רק אם CONFIG.theme.appearance = 'auto' או 'dark' */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --scene-a:#2b241b; --scene-b:#120f0b; --sheet-bg:#1b1712;
+    --ink:#f3ead8; --ink-soft:#b9ac93; --glow:rgba(220,194,135,.16);
+  }
+}
+:root[data-theme="dark"]{
+  --scene-a:#2b241b; --scene-b:#120f0b; --sheet-bg:#1b1712;
+  --ink:#f3ead8; --ink-soft:#b9ac93; --glow:rgba(220,194,135,.16);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   2. BASE
+   ════════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:inherit;margin:0}
+html{height:100%;-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;overflow:hidden;background:var(--scene-b);color:var(--ink);font-family:var(--f-sans);
+  -webkit-font-smoothing:antialiased;touch-action:manipulation;overscroll-behavior:none}
+button,input,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.backdrop{position:fixed;inset:0;z-index:0;
+  background:radial-gradient(120% 90% at 50% 40%,var(--scene-a) 0%,var(--scene-b) 100%)}
+.backdrop::before{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.55}
+.backdrop::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 42% at 50% 46%,var(--glow),transparent 72%)}
+
+/* ════════════════════════════════════════════════════════════════
+   3. ENVELOPE SCENE — מעטפה תלת־ממדית ב-CSS
+   ════════════════════════════════════════════════════════════════ */
+.scene{position:fixed;inset:0;z-index:10;display:grid;place-items:center;overflow:hidden}
+body.is-loading .scene{visibility:hidden}
+
+.scene-mark{position:absolute;top:calc(env(safe-area-inset-top,0px) + 7dvh);left:0;right:0;
+  display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--gold-deep);pointer-events:none}
+.scene-mark p{font:400 1.25rem/1.4 var(--f-serif);color:var(--ink-soft)}
+.orn{width:112px;height:11px;color:var(--gold);display:block}
+
+.env-hover{transition:transform .6s var(--ease-out)}
+@media (hover:hover){
+  .scene:not(.is-opening) .env-hover:hover{transform:translateY(-5px) scale(1.022)}
+}
+
+.env-wrap{--env-w:min(86vw,420px);position:relative;width:var(--env-w);height:calc(var(--env-w)*.72);
+  cursor:pointer;border-radius:4px;-webkit-tap-highlight-color:transparent}
+@supports (height:1dvh){ .env-wrap{--env-w:min(86vw,420px,calc(40dvh*1.39))} }
+.env-wrap:focus-visible{outline-offset:10px}
+
+.env-part{position:absolute;inset:0;pointer-events:none}
+
+.env-shadow{inset:auto 4% -8% 4%;height:15%;z-index:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(var(--shadow),.36),rgba(var(--shadow),0) 70%);filter:blur(9px)}
+
+.env-back{inset:0 0 1px 0;z-index:1;border-radius:3px;
+  background:
+    repeating-linear-gradient(45deg,var(--env-lattice) 0 1px,transparent 1px 10px),
+    repeating-linear-gradient(-45deg,var(--env-lattice) 0 1px,transparent 1px 10px),
+    var(--env-liner);
+  box-shadow:inset 0 16px 24px -14px rgba(var(--shadow),.32)}
+
+.env-glow{z-index:2;inset:-28% 6% 26% 6%;opacity:0;visibility:hidden;filter:blur(5px);
+  background:radial-gradient(ellipse at 50% 72%,rgba(255,222,229,.95),rgba(255,222,229,0) 66%)}
+
+/* card — נחתך בתחתית המעטפה עד שהוא יוצא */
+.card-window{z-index:3;clip-path:inset(-300% -30% 0 -30%)}
+.card{position:absolute;left:8%;top:6%;width:84%;aspect-ratio:5/7;background:var(--sheet-bg);border-radius:3px;
+  box-shadow:0 1px 2px rgba(var(--shadow),.22),0 10px 26px -12px rgba(var(--shadow),.5);will-change:transform}
+.card::before{content:"";position:absolute;inset:3.4%;border:1px solid var(--line);pointer-events:none}
+.card-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:calc(var(--env-w)*.105) 8% 0;color:var(--ink)}
+.cf-orn{width:calc(var(--env-w)*.17);height:auto;aspect-ratio:120/12;color:var(--gold)}
+.cf-kind{margin-top:calc(var(--env-w)*.035);font:400 calc(var(--env-w)*.06)/1.4 var(--f-serif);color:var(--gold-deep)}
+.cf-names{margin-top:calc(var(--env-w)*.02);display:flex;flex-direction:column;align-items:center;
+  font:400 calc(var(--env-w)*.165)/1.2 var(--f-serif)}
+.cf-names em{font:var(--amp-style) 400 calc(var(--env-w)*.105)/1.2 var(--amp-font);color:var(--gold)}
+.cf-rule{display:block;width:calc(var(--env-w)*.09);height:1px;background:var(--line);margin:calc(var(--env-w)*.04) 0 calc(var(--env-w)*.035)}
+.cf-names.is-single{font-size:calc(var(--env-w)*.27);line-height:1.3;margin-top:calc(var(--env-w)*.05)}
+.cf-date{font:400 calc(var(--env-w)*.04)/1 var(--f-latin);letter-spacing:.22em;color:var(--ink-soft)}
+.cf-tag{position:absolute;left:0;right:0;bottom:calc(var(--env-w)*.09);font:400 calc(var(--env-w)*.058)/1.5 var(--f-serif);color:var(--gold-deep)}
+
+/* pocket — חזית המעטפה */
+.env-front{z-index:4}
+.pk{position:absolute;inset:0 0 -1px 0}
+.pk-left{clip-path:polygon(0 0,51% 53%,0 100%);
+  background:var(--noise),linear-gradient(100deg,rgba(255,255,255,.4),rgba(255,255,255,0) 62%),var(--env-left)}
+.pk-right{clip-path:polygon(100% 0,49% 53%,100% 100%);
+  background:var(--noise),linear-gradient(260deg,rgba(255,255,255,.25),rgba(255,255,255,0) 62%),var(--env-right)}
+.pk-bottom-wrap{position:absolute;inset:0 0 -1px 0;filter:drop-shadow(0 -2px 3px rgba(var(--shadow),.17))}
+.pk-bottom{position:absolute;inset:0;clip-path:polygon(0 100%,50% 45%,100% 100%);
+  background:var(--noise),linear-gradient(0deg,rgba(var(--shadow),.06),rgba(var(--shadow),0) 46%),var(--env-bottom)}
+
+/* flap */
+.env-flap-shadow{inset:auto;left:0;top:2.5%;width:100%;height:57%;z-index:5;filter:blur(7px)}
+.env-flap-shadow i{position:absolute;inset:0;background:rgba(var(--shadow),.34);clip-path:polygon(0 0,100% 0,50% 100%)}
+.env-flap-wrap{inset:auto;left:0;top:0;width:100%;height:57%;z-index:6}
+.env-flap{position:absolute;inset:0;transform-origin:50% 0;transform-style:preserve-3d}
+.flap-face{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flap-out{background:var(--env-edge)}
+.flap-out::before{content:"";position:absolute;inset:0;clip-path:polygon(1.1% 0,98.9% 0,50% calc(100% - 4px));
+  background:var(--noise),linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 58%),var(--env-flap)}
+.flap-in{transform:rotateY(180deg);
+  background:
+    linear-gradient(180deg,rgba(var(--shadow),.22),rgba(var(--shadow),0) 42%),
+    repeating-linear-gradient(45deg,var(--env-lattice) 0 1px,transparent 1px 10px),
+    repeating-linear-gradient(-45deg,var(--env-lattice) 0 1px,transparent 1px 10px),
+    var(--env-liner)}
+
+/* wax seal */
+.env-seal{position:absolute;left:50%;top:57%;width:calc(var(--env-w)*.21);aspect-ratio:1;translate:-50% -50%;z-index:7;pointer-events:none}
+.seal-half{position:absolute;inset:0}
+.seal-half svg{width:100%;height:100%;display:block;overflow:visible}
+.seal-half--a{clip-path:polygon(0 0,52% 0,46% 22%,55% 38%,47% 57%,54% 78%,49% 100%,0 100%)}
+.seal-half--b{clip-path:polygon(52% 0,100% 0,100% 100%,49% 100%,54% 78%,47% 57%,55% 38%,46% 22%)}
+.seal-shine{position:absolute;inset:6%;border-radius:50%;overflow:hidden;pointer-events:none}
+.seal-shine::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.7) 50%,transparent 60%);
+  transform:translateX(-130%);animation:shine 5.2s 1.6s ease-in-out infinite}
+@keyframes shine{0%{transform:translateX(-130%)}28%,100%{transform:translateX(130%)}}
+.seal-ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold);opacity:0;animation:ring 2.8s 1.2s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.65}100%{transform:scale(1.85);opacity:0}}
+.seal-flash{position:absolute;inset:-70%;border-radius:50%;opacity:0;visibility:hidden;
+  background:radial-gradient(circle,rgba(255,214,224,.95),rgba(255,214,224,0) 62%)}
+.crumb{position:absolute;left:50%;top:50%;border-radius:1px;background:var(--gold);pointer-events:none}
+
+.hint{position:absolute;top:calc(100% + 40px);left:0;right:0;text-align:center;
+  font:400 1.3rem/1.5 var(--f-serif);color:var(--ink-soft);animation:hint 3.4s ease-in-out infinite}
+@keyframes hint{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ════════════════════════════════════════════════════════════════
+   4. INVITATION SHEET — תוכן ההזמנה
+   ════════════════════════════════════════════════════════════════ */
+.sheet{position:fixed;inset:0;z-index:5;visibility:hidden;pointer-events:none;background:var(--sheet-bg);
+  clip-path:inset(50% 50% 50% 50%)}
+.sheet.is-ready{pointer-events:auto}
+.sheet-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(70% 38% at 50% -6%,var(--glow),transparent 72%);animation:glow 9s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.55}to{opacity:1}}
+.dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.frame{position:absolute;z-index:3;pointer-events:none;opacity:0;border:1px solid var(--line);
+  inset:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px) 12px}
+.frame i{position:absolute;width:7px;height:7px;background:var(--sheet-bg);border:1px solid var(--gold);transform:rotate(45deg)}
+.frame i:nth-child(1){top:-4px;right:-4px}.frame i:nth-child(2){top:-4px;left:-4px}
+.frame i:nth-child(3){bottom:-4px;right:-4px}.frame i:nth-child(4){bottom:-4px;left:-4px}
+
+.scroll{position:absolute;inset:0;z-index:2;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
+.scroll::-webkit-scrollbar{display:none}
+.wrap{width:min(100% - 64px,440px);margin-inline:auto}
+.sec{padding:clamp(56px,11dvh,96px) 0;text-align:center;position:relative}
+.sec-title{font:400 2rem/1.4 var(--f-serif);color:var(--ink);margin-bottom:8px}
+.sec-sub{font:300 1rem/1.7 var(--f-sans);color:var(--ink-soft)}
+.rule{display:block;width:44px;height:1px;background:var(--line);margin:34px auto}
+
+/* hero */
+.hero{position:relative;min-height:100%;display:grid;place-items:center;text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 72px) 0 calc(env(safe-area-inset-bottom,0px) + 84px)}
+.hero-inner{display:flex;flex-direction:column;align-items:center}
+.hero .kind{margin-top:20px;font:400 1.7rem/1.5 var(--f-serif);color:var(--gold-deep)}
+.names{margin:.16em 0 .1em;display:flex;flex-direction:column;align-items:center;
+  font:400 clamp(2.8rem,min(24vw,15dvh),7rem)/1.18 var(--f-serif);color:var(--ink)}
+.names .amp{font:var(--amp-style) 400 .6em/1.3 var(--amp-font);color:var(--gold);margin:.04em 0}
+.names.is-single{font-size:clamp(4.8rem,min(36vw,20dvh),9.5rem);line-height:1.3;margin:.12em 0 .06em}
+.hero-date{display:flex;align-items:center;gap:16px;margin-top:22px;font:400 1.15rem/1 var(--f-latin);letter-spacing:.24em;color:var(--ink-soft)}
+.hero-date::before,.hero-date::after{content:"";width:34px;height:1px;background:var(--line)}
+.cue{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);translate:-50% 0;
+  display:flex;flex-direction:column;align-items:center;gap:8px;font:300 .85rem/1 var(--f-sans);color:var(--ink-soft)}
+.cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold),transparent);transform-origin:top;animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* details */
+.lead{font:400 1.5rem/2 var(--f-serif);color:var(--ink);max-width:19em;margin-inline:auto}
+.weekday{font:400 1.45rem/1.4 var(--f-serif);color:var(--ink-soft)}
+.day{font:300 7rem/.95 var(--f-latin);color:var(--ink);margin:6px 0 4px}
+.month{font:400 1.8rem/1.4 var(--f-serif);color:var(--gold-deep)}
+.time{font:300 2.7rem/1 var(--f-latin);color:var(--ink);letter-spacing:.04em}
+.time-note{margin-top:8px;font:300 1rem/1.4 var(--f-sans);color:var(--ink-soft)}
+.place{font:400 2rem/1.5 var(--f-serif)}
+.address{margin-top:6px;font:300 1.02rem/1.6 var(--f-sans);color:var(--ink-soft)}
+.tagline{font:400 2.4rem/1.5 var(--f-serif);margin:6px 0 30px}
+.tagline:last-child{margin-bottom:0}
+.actions{display:flex;flex-direction:column;align-items:center;gap:12px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:54px;min-width:220px;padding:0 34px;
+  border-radius:999px;font:500 1rem/1 var(--f-sans);text-decoration:none;
+  transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),background .4s,color .4s}
+.btn:active{transform:scale(.97)}
+.btn--solid{color:#fffaf0;background:linear-gradient(180deg,var(--gold),var(--gold-deep));
+  box-shadow:0 12px 26px -12px var(--accent-shadow),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn--ghost{border:1px solid var(--line);color:var(--ink)}
+@media (hover:hover){
+  .btn--solid:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px var(--accent-shadow),inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn--ghost:hover{background:var(--glow)}
+}
+.link-quiet{margin-top:6px;font:300 .95rem/1 var(--f-sans);color:var(--ink-soft);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--line)}
+
+/* countdown */
+.cd{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px}
+.cd-unit{padding:6px 0}
+.cd-unit + .cd-unit{border-inline-start:1px solid var(--line-soft)}
+.cd-num{display:block;font:300 3rem/1 var(--f-latin);color:var(--ink);font-variant-numeric:tabular-nums}
+.cd-label{display:block;margin-top:10px;font:300 .85rem/1 var(--f-sans);color:var(--ink-soft)}
+.cd-done{margin-top:30px;font:400 1.75rem/1.6 var(--f-serif)}
+
+/* location */
+.map{position:relative;margin-top:30px;aspect-ratio:4/3;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--paper-deep)}
+.map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pin-pulse{transform-box:fill-box;transform-origin:center;animation:pin 2.6s ease-out infinite}
+@keyframes pin{0%{transform:scale(.4);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+.map-note{margin:20px auto 26px;font:300 1rem/1.7 var(--f-sans);color:var(--ink-soft);max-width:20em}
+
+/* gallery */
+.gallery{display:flex;gap:14px;margin-top:30px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding-inline:calc((100% - min(100% - 64px,440px))/2);scroll-padding-inline:calc((100% - min(100% - 64px,440px))/2)}
+.gallery::-webkit-scrollbar{display:none}
+.tile{flex:0 0 min(66vw,270px);aspect-ratio:3/4;scroll-snap-align:center;overflow:hidden;border-radius:999px 999px 6px 6px;background:var(--paper-deep)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--line);transition:background .4s,transform .4s var(--ease-out)}
+.dots i.on{background:var(--gold);transform:scale(1.5)}
+
+/* rsvp */
+.form{margin-top:30px;text-align:start}
+.field{margin-bottom:26px}
+.field label,.field .lbl{display:block;margin-bottom:6px;font:300 .92rem/1.4 var(--f-sans);color:var(--ink-soft)}
+.field input[type=text],.field textarea{width:100%;padding:8px 0 10px;background:transparent;border:0;border-bottom:1px solid var(--line);
+  border-radius:0;font:400 1.3rem/1.6 var(--f-serif);color:var(--ink);outline:none;resize:none;transition:border-color .3s}
+.field input[type=text]:focus,.field textarea:focus{border-bottom-color:var(--gold)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice span{display:flex;align-items:center;justify-content:center;min-height:52px;padding:8px 10px;text-align:center;border:1px solid var(--line);
+  border-radius:999px;font:400 .98rem/1.25 var(--f-sans);transition:background .35s,color .35s,border-color .35s}
+.choice input:checked + span{background:var(--gold-deep);border-color:var(--gold-deep);color:#fffaf0}
+.choice input:focus-visible + span{outline:2px solid var(--gold);outline-offset:3px}
+.stepper{direction:ltr;display:inline-flex;align-items:center;gap:22px}
+.stepper button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font:300 1.4rem/1 var(--f-sans);color:var(--ink)}
+.stepper output{min-width:1.6em;text-align:center;font:300 2rem/1 var(--f-latin)}
+.form-error{margin-bottom:14px;font:400 .95rem/1.4 var(--f-sans);color:#a4432f;text-align:center}
+.form .btn{width:100%}
+.deadline{margin-top:16px;text-align:center;font:300 .9rem/1.5 var(--f-sans);color:var(--ink-soft)}
+.thanks{margin-top:30px}
+.thanks p{font:400 1.75rem/1.7 var(--f-serif)}
+
+.footer{padding:20px 0 calc(env(safe-area-inset-bottom,0px) + 70px);text-align:center;color:var(--gold-deep)}
+.footer p{margin-top:16px;font:400 1.5rem/1.6 var(--f-serif);color:var(--ink-soft)}
+
+/* reveal on scroll (מופעל רק כשה-JS רץ) */
+.js-reveal [data-reveal]{opacity:0;transform:translateY(12px);
+  transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out);transition-delay:var(--d,0s)}
+.js-reveal [data-reveal].is-in{opacity:1;transform:none}
+
+/* ════════════════════════════════════════════════════════════════
+   5. UI — צליל, תפריט מיקום
+   ════════════════════════════════════════════════════════════════ */
+.sound{position:fixed;z-index:30;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;color:var(--gold-deep);border:1px solid var(--line-soft);
+  background:rgba(255,251,250,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .4s,background .3s}
+.sound svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sound .off{display:none}
+.sound[aria-pressed="true"] .on{display:none}
+.sound[aria-pressed="true"] .off{display:block}
+body.is-loading .sound{opacity:0}
+
+.menu{position:fixed;inset:0;z-index:40;visibility:hidden}
+.menu.open{visibility:visible}
+.menu-backdrop{position:absolute;inset:0;width:100%;background:rgba(48,20,30,.42);opacity:0;transition:opacity .4s}
+.menu.open .menu-backdrop{opacity:1}
+.menu-panel{position:absolute;left:0;right:0;bottom:0;margin-inline:auto;width:min(100%,460px);
+  padding:22px 22px calc(env(safe-area-inset-bottom,0px) + 22px);background:var(--sheet-bg);border-radius:22px 22px 0 0;
+  transform:translateY(102%);transition:transform .55s var(--ease-out);text-align:center}
+.menu.open .menu-panel{transform:none}
+.menu-title{font:400 1.4rem/1.5 var(--f-serif);margin-bottom:14px}
+.menu-item{display:flex;align-items:center;justify-content:center;min-height:56px;border-top:1px solid var(--line-soft);
+  text-decoration:none;font:400 1.05rem/1 var(--f-sans)}
+.menu-cancel{width:100%;min-height:56px;border-top:1px solid var(--line-soft);font:300 1rem/1 var(--f-sans);color:var(--ink-soft)}
+
+/* מסכים נמוכים (טלפון על הצד): החיווי נכנס לזרימה ולא חופף */
+@media (max-height:560px){
+  .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:calc(env(safe-area-inset-top,0px) + 40px);padding-bottom:40px}
+  .cue{position:static;translate:none;margin-top:18px}
+  .cue::after{height:22px}
+  .hero-date{margin-top:14px}
+  .sec{padding:56px 0}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .seal-shine::after,.seal-ring,.hint,.sheet-glow,.pin-pulse,.cue::after{animation:none}
+  .js-reveal [data-reveal]{transition:none}
+}
+</style>
+</head>
+
+<body class="is-loading">
+
+<!-- SVG defs: gradients, ornament -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="gWax" cx="34%" cy="28%" r="82%">
+      <stop offset="0" style="stop-color:color-mix(in srgb,var(--gold-light) 70%,#fff)"/>
+      <stop offset=".42" style="stop-color:var(--gold-light)"/>
+      <stop offset=".78" style="stop-color:var(--gold)"/>
+      <stop offset="1" style="stop-color:var(--gold-deep)"/>
+    </radialGradient>
+    <linearGradient id="gShine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="fBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <symbol id="orn" viewBox="0 0 120 12">
+      <g fill="currentColor">
+        <circle cx="6" cy="6" r=".8"/><circle cx="13" cy="6" r=".8"/><circle cx="20" cy="6" r=".8"/><circle cx="27" cy="6" r=".8"/><circle cx="34" cy="6" r=".8"/><circle cx="41" cy="6" r="1"/>
+        <circle cx="114" cy="6" r=".8"/><circle cx="107" cy="6" r=".8"/><circle cx="100" cy="6" r=".8"/><circle cx="93" cy="6" r=".8"/><circle cx="86" cy="6" r=".8"/><circle cx="79" cy="6" r="1"/>
+        <path d="M47 6c1.6-2.1 3.3-2.1 5 0-1.7 2.1-3.4 2.1-5 0z"/><path d="M73 6c-1.6-2.1-3.3-2.1-5 0 1.7 2.1 3.4 2.1 5 0z"/>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width=".8">
+        <ellipse cx="60" cy="6" rx="1.9" ry="5.2"/>
+        <ellipse cx="60" cy="6" rx="1.9" ry="5.2" transform="rotate(60 60 6)"/>
+        <ellipse cx="60" cy="6" rx="1.9" ry="5.2" transform="rotate(120 60 6)"/>
+      </g>
+      <circle cx="60" cy="6" r="1.3" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="backdrop" aria-hidden="true"></div>
+
+<!-- ═════════ 6. OPENING SCENE ═════════ -->
+<main class="scene" id="scene">
+  <div class="scene-mark" id="sceneMark">
+    <svg class="orn" aria-hidden="true"><use href="#orn"/></svg>
+    <p data-bind="texts.sceneTop"></p>
+  </div>
+
+  <div class="env-hover">
+    <div class="env-wrap" id="envWrap" role="button" tabindex="0" data-aria="texts.aria.open">
+      <div class="env-part env-shadow" id="envShadow"></div>
+      <div class="env-part env-back" id="envBack"></div>
+      <div class="env-part env-glow" id="envGlow"></div>
+
+      <div class="env-part env-flap-wrap" id="flapWrap">
+        <div class="env-flap" id="flap">
+          <div class="flap-face flap-out"></div>
+          <div class="flap-face flap-in"></div>
+        </div>
+      </div>
+      <div class="env-part env-flap-shadow" id="flapShadow"><i></i></div>
+
+      <div class="env-part card-window" id="cardWindow">
+        <div class="card" id="card">
+          <div class="card-face" id="cardFace">
+            <svg class="cf-orn" aria-hidden="true"><use href="#orn"/></svg>
+            <p class="cf-kind" data-bind="event.kind"></p>
+            <p class="cf-names" id="cardNames"></p>
+            <span class="cf-rule"></span>
+            <p class="cf-date" data-bind="date.short"></p>
+            <p class="cf-tag" data-bind="texts.tagline"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="env-part env-front" id="envFront">
+        <div class="pk pk-left"></div>
+        <div class="pk pk-right"></div>
+        <div class="pk-bottom-wrap"><div class="pk-bottom"></div></div>
+      </div>
+
+      <div class="env-seal" id="seal">
+        <span class="seal-flash" id="sealFlash"></span>
+        <span class="seal-ring" id="sealRing"></span>
+        <span class="seal-half seal-half--a" id="sealA"></span>
+        <span class="seal-half seal-half--b" id="sealB"></span>
+        <span class="seal-shine" id="sealShine"></span>
+      </div>
+
+      <p class="hint" id="hint" data-bind="texts.hint"></p>
+    </div>
+  </div>
+</main>
+
+<!-- ═════════ 7. INVITATION ═════════ -->
+<div class="sheet" id="sheet" aria-hidden="true" inert>
+  <div class="sheet-glow"></div>
+  <canvas class="dust" id="dust"></canvas>
+  <div class="frame" id="frame"><i></i><i></i><i></i><i></i></div>
+
+  <div class="scroll" id="scroll" tabindex="-1">
+
+    <!-- hero -->
+    <section class="hero" id="hero">
+      <div class="wrap hero-inner">
+        <svg class="orn" data-hero aria-hidden="true"><use href="#orn"/></svg>
+        <p class="kind" data-hero data-bind="event.kind"></p>
+        <h1 class="names" id="heroNames"></h1>
+        <p class="hero-date" data-hero data-bind="date.short"></p>
+      </div>
+      <button class="cue" type="button" data-hero data-scroll-to="details"><span data-bind="texts.scrollCue"></span></button>
+    </section>
+
+    <!-- details -->
+    <section class="sec" id="details">
+      <div class="wrap">
+        <p class="lead" data-reveal data-bind="texts.lead"></p>
+        <span class="rule" data-reveal></span>
+
+        <div data-reveal>
+          <p class="weekday" data-bind="date.weekday"></p>
+          <p class="day" data-bind="date.day"></p>
+          <p class="month" data-bind="date.monthYear"></p>
+        </div>
+        <span class="rule" data-reveal></span>
+
+        <div data-reveal>
+          <p class="time" data-bind="event.time"></p>
+          <p class="time-note" data-bind="event.timeNote"></p>
+        </div>
+        <span class="rule" data-reveal></span>
+
+        <div data-reveal>
+          <p class="place" data-bind="place.name"></p>
+          <p class="address" data-bind="place.address"></p>
+        </div>
+        <span class="rule" data-reveal></span>
+
+        <p class="tagline" data-reveal data-bind="texts.tagline"></p>
+        <div class="actions" data-reveal data-section="detailsButtons">
+          <button class="btn btn--solid" type="button" data-scroll-to="rsvp" data-bind="texts.rsvpButton"></button>
+          <button class="btn btn--ghost" type="button" data-open-map data-bind="texts.locationButton"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- countdown -->
+    <section class="sec" id="countdown" data-section="countdown">
+      <div class="wrap">
+        <h2 class="sec-title" data-reveal data-bind="texts.countdownTitle"></h2>
+        <div class="cd" id="cd" data-reveal>
+          <div class="cd-unit"><span class="cd-num" id="cdD">0</span><span class="cd-label" data-bind="texts.days"></span></div>
+          <div class="cd-unit"><span class="cd-num" id="cdH">00</span><span class="cd-label" data-bind="texts.hours"></span></div>
+          <div class="cd-unit"><span class="cd-num" id="cdM">00</span><span class="cd-label" data-bind="texts.minutes"></span></div>
+          <div class="cd-unit"><span class="cd-num" id="cdS">00</span><span class="cd-label" data-bind="texts.seconds"></span></div>
+        </div>
+        <p class="cd-done" id="cdDone" hidden></p>
+      </div>
+    </section>
+
+    <!-- location -->
+    <section class="sec" id="location" data-section="location">
+      <div class="wrap">
+        <h2 class="sec-title" data-reveal data-bind="texts.locationTitle"></h2>
+        <p class="sec-sub" data-reveal><span data-bind="place.name"></span>, <span data-bind="place.address"></span></p>
+        <div class="map" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" style="fill:var(--paper-deep)"/>
+            <path d="M-10 210C60 170 110 230 190 200S330 120 410 150V310H-10z" style="fill:var(--gold-light);opacity:.22"/>
+            <path d="M250 -10C270 60 240 110 300 150S380 230 410 250V-10z" style="fill:var(--gold-light);opacity:.16"/>
+            <g fill="none" stroke-linecap="round" style="stroke:var(--ivory)">
+              <path d="M-10 90C80 100 150 60 230 90S350 80 410 60" stroke-width="9"/>
+              <path d="M120 -10C130 80 90 170 130 310" stroke-width="7"/>
+              <path d="M-10 250C120 230 220 260 410 210" stroke-width="6"/>
+              <path d="M300 -10C290 90 330 170 310 310" stroke-width="5"/>
+              <path d="M40 30L360 280" stroke-width="3" opacity=".8"/>
+            </g>
+            <g fill="none" stroke-width="1" style="stroke:var(--gold)" opacity=".35">
+              <path d="M-10 90C80 100 150 60 230 90S350 80 410 60"/><path d="M120 -10C130 80 90 170 130 310"/>
+              <path d="M-10 250C120 230 220 260 410 210"/><path d="M300 -10C290 90 330 170 310 310"/>
+            </g>
+            <circle class="pin-pulse" cx="200" cy="146" r="16" style="fill:var(--gold)"/>
+            <path d="M200 176c-14-18-22-29-22-41a22 22 0 0 1 44 0c0 12-8 23-22 41z" style="fill:var(--gold-deep)"/>
+            <circle cx="200" cy="135" r="8" style="fill:var(--ivory)"/>
+          </svg>
+        </div>
+        <p class="map-note" data-reveal data-bind="place.note"></p>
+        <div class="actions" data-reveal>
+          <button class="btn btn--solid" type="button" data-open-map data-bind="texts.locationButton"></button>
+          <a class="link-quiet" id="calLink" target="_blank" rel="noopener" data-bind="texts.calendarButton"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- gallery -->
+    <section class="sec" id="gallery" data-section="gallery">
+      <div class="wrap">
+        <h2 class="sec-title" data-reveal data-bind="texts.galleryTitle"></h2>
+      </div>
+      <div class="gallery" id="galleryTrack" data-reveal></div>
+      <div class="dots" id="galleryDots" aria-hidden="true"></div>
+    </section>
+
+    <!-- rsvp -->
+    <section class="sec" id="rsvp" data-section="rsvp">
+      <div class="wrap">
+        <h2 class="sec-title" data-reveal data-bind="texts.rsvpTitle"></h2>
+        <p class="sec-sub" data-reveal data-bind="texts.rsvpSub"></p>
+
+        <form class="form" id="rsvpForm" novalidate data-reveal>
+          <div class="field">
+            <label for="rsvpName" data-bind="texts.rsvpName"></label>
+            <input id="rsvpName" name="name" type="text" autocomplete="name" enterkeyhint="next">
+          </div>
+          <div class="choices" role="radiogroup">
+            <label class="choice"><input type="radio" name="attending" value="yes" checked><span data-bind="texts.rsvpYes"></span></label>
+            <label class="choice"><input type="radio" name="attending" value="no"><span data-bind="texts.rsvpNo"></span></label>
+          </div>
+          <div class="field" id="guestsField" style="text-align:center">
+            <span class="lbl" data-bind="texts.rsvpGuests"></span>
+            <div class="stepper">
+              <button type="button" data-step="-1" data-aria="texts.aria.less">−</button>
+              <output id="guestsOut" aria-live="polite">2</output>
+              <button type="button" data-step="1" data-aria="texts.aria.more">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rsvpNote" data-bind="texts.rsvpNote"></label>
+            <textarea id="rsvpNote" name="note" rows="2"></textarea>
+          </div>
+          <p class="form-error" id="rsvpError" role="alert" hidden></p>
+          <button class="btn btn--solid" type="submit" data-bind="texts.rsvpSubmit"></button>
+          <p class="deadline" data-bind="rsvp.deadline"></p>
+        </form>
+
+        <div class="thanks" id="rsvpThanks" hidden><p id="rsvpThanksText"></p></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <svg class="orn" style="margin-inline:auto" aria-hidden="true"><use href="#orn"/></svg>
+      <p data-bind="texts.footer"></p>
+    </footer>
+  </div>
+</div>
+
+<button class="sound" id="soundBtn" type="button" aria-pressed="false" data-aria="texts.aria.mute">
+  <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+  <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+</button>
+
+<div class="menu" id="mapMenu" aria-hidden="true">
+  <button class="menu-backdrop" type="button" data-close-map data-aria="texts.aria.close"></button>
+  <div class="menu-panel" role="dialog" aria-modal="true" aria-labelledby="mapMenuTitle">
+    <p class="menu-title" id="mapMenuTitle" data-bind="texts.mapMenuTitle"></p>
+    <a class="menu-item" data-map="waze" target="_blank" rel="noopener">Waze</a>
+    <a class="menu-item" data-map="google" target="_blank" rel="noopener">Google Maps</a>
+    <a class="menu-item" data-map="apple" target="_blank" rel="noopener">Apple Maps</a>
+    <button class="menu-cancel" type="button" data-close-map data-bind="texts.cancel"></button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════════════
+   A. CONFIG — כל מה שמשנים נמצא כאן: טקסטים, צבעים, תאריך, תמונות
+   ════════════════════════════════════════════════════════════════ */
+const CONFIG = {
+
+  /* שפה וכיוון */
+  language: 'ar',
+  dir: 'rtl',
+  /* שמות חודשים: 'ar-PS-u-nu-latn' = أيار (מזרח הים התיכון) | 'ar-EG-u-nu-latn' = مايو (מצרים/המפרץ) */
+  locale: 'ar-PS-u-nu-latn',
+
+  /* צבעים. "gold" הוא צבע ההדגשה היחיד: כאן ורוד עתיק. שינוי שלושת ערכי gold/goldLight/goldDeep
+     מחליף את כל הצבע (כולל המעטפה והחותמת). paper/ivory הם הרקעים.
+     appearance: 'light' (ברירת מחדל) | 'dark' | 'auto' (לפי הגדרות הטלפון של האורח) */
+  theme: {
+    appearance: 'light',
+    colors: {
+      paper:      '#fdf4f3',
+      paperDeep:  '#f6e1e2',
+      ivory:      '#fffbfa',
+      gold:       '#bf6f82',
+      goldLight:  '#e9b9c2',
+      goldDeep:   '#96475b',
+      ink:        '#43262e',
+      inkSoft:    '#86656c',
+      shadow:     '74,38,50',
+      accentShadow: 'rgba(150,71,91,.62)'
+    }
+  },
+
+  /* אילו חלקים מוצגים בדף. false = החלק מוסר לגמרי מהדף (וחוזר עם true).
+     detailsButtons = שני הכפתורים מתחת ל"يسعدنا أن تشاركونا فرحتنا"
+     rsvp = טופס אישור ההגעה | gallery = "لحظات جميلة" */
+  sections: {
+    detailsButtons: false,
+    countdown:      true,
+    location:       true,
+    gallery:        false,
+    rsvp:           false
+  },
+
+  /* האירוע. names: שם אחד או שניים (עם שניים מופיע amp ביניהם) */
+  event: {
+    kind:     'ليلة حنّاء',
+    names:    ['ريم'],
+    amp:      'و',
+    title:    'ليلة حنّاء ريم',             // ליומן ולהודעת האישור
+    date:     '2026-10-01',                 // שנה-חודש-יום (YYYY-MM-DD), 1 באוקטובר 2026
+    time:     '18:30',
+    timeNote: 'استقبال الضيوف وبدء الاحتفال',
+    tzOffset: '+03:00',                     // לספירה לאחור (קיץ בישראל +03:00, חורף +02:00)
+    timeZone: 'Asia/Jerusalem',
+    durationHours: 4
+  },
+
+  /* המיקום */
+  place: {
+    name:    'في بيت خالها سهيل سليم',
+    address: '(ابو ابراهيم)',
+    note:    'اهلا وسهلا بالجميع.',
+    /* אופציונלי: קישורים ידניים. אם ריק, נבנה אוטומטית מהכתובת */
+    wazeUrl: '', googleUrl: '', appleUrl: ''
+  },
+
+  /* טקסטים (ערבית) */
+  texts: {
+    pageTitle:  'دعوة إلى ليلة حنّاء ريم',
+    sceneTop:   'أنتم مدعوون',
+    hint:       'اضغطوا لفتح الدعوة',
+    scrollCue:  'مرّروا للأسفل',
+    lead:       'بقلوب مليئة بالفرح ندعوكم لمشاركتنا ليلة الحنّاء، ليلة من الفرح والذكريات الجميلة',
+    tagline:    'يسعدنا أن تشاركونا فرحتنا',
+    rsvpButton: 'تأكيد الحضور',
+    locationButton: 'فتح الموقع',
+    calendarButton: 'إضافة إلى التقويم',
+    countdownTitle: 'بقي القليل لليلة الحنّاء',
+    countdownDone:  'حانت ليلة الحنّاء. بانتظاركم بكل حب!',
+    days: 'أيام', hours: 'ساعات', minutes: 'دقائق', seconds: 'ثوانٍ',
+    locationTitle: 'كيف تصلون',
+    mapMenuTitle:  'فتح الموقع في تطبيق',
+    cancel:        'إلغاء',
+    galleryTitle:  'لحظات جميلة',
+    rsvpTitle: 'تأكيد الحضور',
+    rsvpSub:   'يسعدنا أن نعرف إن كنتم ستشاركوننا الفرح',
+    rsvpName:  'الاسم الكامل',
+    rsvpYes:   'سنحضر بكل سرور',
+    rsvpNo:    'لن نتمكّن من الحضور',
+    rsvpGuests:'كم عددكم؟',
+    rsvpNote:  'كلمة أو ملاحظة (اختياري)',
+    rsvpSubmit:'إرسال التأكيد',
+    rsvpNameError: 'يرجى كتابة الاسم الكامل',
+    thanksYes: 'شكرًا لكم! سجّلنا حضوركم، وننتظركم بشوق.',
+    thanksNo:  'شكرًا لإعلامنا. سنفتقدكم في هذه الليلة.',
+    footer:    'بكل محبة، ريم وعائلتها',
+
+    /* טקסטים לקורא מסך ולכפתורי ממשק */
+    aria: {
+      open: 'فتح الدعوة', mute: 'كتم الصوت', unmute: 'تشغيل الصوت',
+      close: 'إغلاق', less: 'إنقاص', more: 'زيادة'
+    },
+    /* נוסח הודעת האישור (וואטסאפ / אימייל) */
+    msg: {
+      yes: 'مرحبًا، أؤكد حضوري إلى', no: 'مرحبًا، للأسف لن أتمكّن من الحضور إلى',
+      name: 'الاسم', guests: 'عدد الحضور', note: 'ملاحظة', subject: 'تأكيد حضور'
+    }
+  },
+
+  /* גלריה. src ריק = תמונת עיצוב זמנית. להחלפה: כתובת תמונה או data: URI */
+  gallery: {
+    images: [
+      { src: '', alt: 'صورة 1' },
+      { src: '', alt: 'صورة 2' },
+      { src: '', alt: 'صورة 3' },
+      { src: '', alt: 'صورة 4' },
+      { src: '', alt: 'صورة 5' }
+    ]
+  },
+
+  /* אישור הגעה. אפשר למלא מספר וואטסאפ בפורמט בינלאומי (972501234567) ו/או אימייל.
+     אם שניהם ריקים, האישור מוצג לאורח בלבד (מצב הדגמה). */
+  rsvp: {
+    whatsapp: '',
+    email:    '',
+    deadline: 'نرجو تأكيد الحضور قبل 10 أيار',
+    maxGuests: 8,
+    defaultGuests: 2
+  },
+
+  /* צליל. הצלילים הבסיסיים מסונתזים בדפדפן. אפשר להוסיף מוזיקת רקע (mp3) ב-musicSrc */
+  audio: { enabled: true, volume: 0.9, musicSrc: '', musicVolume: 0.35 },
+
+  /* אות/אותיות החותמת. אות אחת = אות גדולה במרכז */
+  seal: { initials: ['ر'] }
+};
+
+
+/* ════════════════════════════════════════════════════════════════
+   B. HELPERS
+   ════════════════════════════════════════════════════════════════ */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+const pad = n => String(n).padStart(2, '0');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hasGsap = typeof window.gsap !== 'undefined';
+
+
+/* ════════════════════════════════════════════════════════════════
+   C. THEME + CONTENT — הזרקת הצבעים והתוכן ל-DOM
+   ════════════════════════════════════════════════════════════════ */
+const Content = (() => {
+  const view = {};
+
+  function applyTheme() {
+    const root = document.documentElement;
+    for (const [k, v] of Object.entries(CONFIG.theme.colors)) {
+      root.style.setProperty('--' + k.replace(/[A-Z]/g, m => '-' + m.toLowerCase()), v);
+    }
+    const a = CONFIG.theme.appearance;
+    if (a === 'light' || a === 'dark') root.dataset.theme = a;
+    root.lang = CONFIG.language; root.dir = CONFIG.dir;
+    document.title = CONFIG.texts.pageTitle;
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.content = CONFIG.theme.colors.paperDeep;
+  }
+
+  function buildView() {
+    const [y, m, d] = CONFIG.event.date.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    const f = o => new Intl.DateTimeFormat(CONFIG.locale, o).format(dt);
+    Object.assign(view, CONFIG, {
+      date: {
+        weekday: f({ weekday: 'long' }),
+        day: String(d),
+        monthYear: `${f({ month: 'long' })} ${y}`,
+        short: `${pad(d)}.${pad(m)}.${y}`,
+        y, m, d
+      }
+    });
+  }
+
+  function bind() {
+    $$('[data-bind]').forEach(el => {
+      const v = get(view, el.dataset.bind);
+      if (v != null) el.textContent = v;
+    });
+    $$('[data-aria]').forEach(el => el.setAttribute('aria-label', get(view, el.dataset.aria)));
+  }
+
+  /* wax seal — SVG עם שפה לא סימטרית */
+  function blobPath(cx, cy, r, n, amp) {
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      const rr = r + Math.sin(i * 2.7) * amp + Math.cos(i * 1.3 + 1) * amp * .6;
+      pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]);
+    }
+    const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
+    let d = 'M' + mid(pts[n - 1], pts[0]).map(v => v.toFixed(2)).join(' ');
+    for (let i = 0; i < n; i++) {
+      const c = pts[i], e = mid(pts[i], pts[(i + 1) % n]);
+      d += `Q${c[0].toFixed(2)} ${c[1].toFixed(2)} ${e[0].toFixed(2)} ${e[1].toFixed(2)}`;
+    }
+    return d + 'Z';
+  }
+
+  function sealSVG() {
+    const ini = CONFIG.seal.initials;
+    const blob = blobPath(50, 50, 44, 16, 2.4);
+    const font = `font-family:var(--f-serif);font-weight:500`;
+    const letters = ini.length === 1
+      ? `<g style="${font}" text-anchor="middle" font-size="42">
+           <text x="50.7" y="65.2" fill="rgba(255,240,244,.55)">${ini[0]}</text>
+           <text x="50" y="64.5" style="fill:var(--gold-darkest)">${ini[0]}</text>
+         </g>`
+      : `<g style="${font}" text-anchor="middle" font-size="27">
+           <text x="63.4" y="59.4" fill="rgba(255,240,244,.55)">${ini[0]}</text><text x="62.8" y="58.8" style="fill:var(--gold-darkest)">${ini[0]}</text>
+           <text x="36.9" y="59.4" fill="rgba(255,240,244,.55)">${ini[1]}</text><text x="36.3" y="58.8" style="fill:var(--gold-darkest)">${ini[1]}</text>
+         </g>
+         <text x="50" y="56" text-anchor="middle" font-size="13" style="font-family:var(--amp-font);font-style:var(--amp-style);fill:var(--gold-darkest)">${CONFIG.event.amp}</text>`;
+    return `<svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="${blob}" transform="translate(1.6 2.4)" fill="rgba(74,32,46,.38)" filter="url(#fBlur)"/>
+      <path d="${blob}" fill="url(#gWax)"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="rgba(255,240,244,.6)" stroke-width="1.5" transform="translate(-.7 -.7)"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="rgba(90,36,52,.55)" stroke-width="1.5" transform="translate(.7 .7)"/>
+      ${letters}
+      <path d="${blob}" fill="url(#gShine)" opacity=".55"/>
+    </svg>`;
+  }
+
+  /* תמונות זמניות לגלריה — קומפוזיציות מופשטות בצבעי הנושא */
+  function artURI(i) {
+    const c = CONFIG.theme.colors;
+    const shapes = [
+      `<circle cx="150" cy="170" r="78" fill="${c.goldLight}" opacity=".7"/><path d="M0 285h300M0 305h300M0 325h300" stroke="${c.gold}" stroke-width="1" opacity=".45"/>`,
+      `<path d="M70 400V210a80 80 0 0 1 160 0v190z" fill="${c.paper}" opacity=".8"/><path d="M105 400V215a45 45 0 0 1 90 0v185z" fill="${c.goldLight}" opacity=".65"/>`,
+      `<circle cx="150" cy="200" r="110" fill="none" stroke="${c.gold}" stroke-width="1" opacity=".5"/><circle cx="150" cy="200" r="78" fill="none" stroke="${c.gold}" stroke-width="1" opacity=".6"/><circle cx="150" cy="200" r="46" fill="${c.goldLight}" opacity=".6"/>`,
+      `<path d="M-20 330L200 -20l60 0L40 420z" fill="${c.paper}" opacity=".55"/><path d="M60 430L300 40l40 0L100 430z" fill="${c.goldLight}" opacity=".5"/>`,
+      `<circle cx="210" cy="130" r="44" fill="${c.goldDeep}" opacity=".35"/><path d="M0 300C70 250 130 320 210 270S290 250 300 260V400H0z" fill="${c.goldLight}" opacity=".6"/><path d="M0 340C90 300 160 360 300 310V400H0z" fill="${c.paper}" opacity=".7"/>`
+    ];
+    const bgs = [[c.paperDeep, c.paper], [c.paper, c.paperDeep], [c.paperDeep, c.ivory], [c.ivory, c.paperDeep], [c.paper, c.goldLight]];
+    const [b1, b2] = bgs[i % bgs.length];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${b1}"/><stop offset="1" stop-color="${b2}"/></linearGradient></defs><rect width="300" height="400" fill="url(#g)"/>${shapes[i % shapes.length]}</svg>`;
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
+  function buildGallery() {
+    const track = $('#galleryTrack'), dots = $('#galleryDots');
+    if (!track) return;
+    CONFIG.gallery.images.forEach((im, i) => {
+      const t = document.createElement('div'); t.className = 'tile';
+      const img = new Image(); img.alt = im.alt || ''; img.loading = 'lazy'; img.decoding = 'async';
+      img.src = im.src || artURI(i);
+      t.appendChild(img); track.appendChild(t);
+      dots.appendChild(document.createElement('i'));
+    });
+    const tiles = $$('.tile', track), ds = $$('i', dots);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const box = track.getBoundingClientRect(), mid = box.left + box.width / 2;
+      let best = 0, bd = Infinity;
+      tiles.forEach((t, i) => { const r = t.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      ds.forEach((d, i) => d.classList.toggle('on', i === best));
+    };
+    track.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    update();
+  }
+
+  function buildLinks() {
+    const { place, event } = CONFIG, q = encodeURIComponent(`${place.name}, ${place.address}`);
+    const urls = {
+      waze:   place.wazeUrl   || `https://waze.com/ul?q=${q}&navigate=yes`,
+      google: place.googleUrl || `https://www.google.com/maps/search/?api=1&query=${q}`,
+      apple:  place.appleUrl  || `https://maps.apple.com/?q=${q}`
+    };
+    $$('[data-map]').forEach(a => a.href = urls[a.dataset.map]);
+
+    const { y, m, d } = view.date, [hh, mm] = event.time.split(':').map(Number);
+    const s = `${y}${pad(m)}${pad(d)}T${pad(hh)}${pad(mm)}00`;
+    const e = new Date(Date.UTC(y, m - 1, d, hh + event.durationHours, mm));
+    const end = `${e.getUTCFullYear()}${pad(e.getUTCMonth() + 1)}${pad(e.getUTCDate())}T${pad(e.getUTCHours())}${pad(e.getUTCMinutes())}00`;
+    const cal = $('#calLink');
+    if (cal) cal.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + `&text=${encodeURIComponent(event.title)}&dates=${s}/${end}&ctz=${encodeURIComponent(event.timeZone)}`
+      + `&location=${q}`;
+  }
+
+  /* שם אחד או יותר: נבנה מהרשימה ב-CONFIG.event.names */
+  function buildNames() {
+    const list = CONFIG.event.names, amp = CONFIG.event.amp;
+    const hero = $('#heroNames'), card = $('#cardNames');
+    hero.textContent = ''; card.textContent = '';
+    list.forEach((name, i) => {
+      if (i > 0) {
+        const a = document.createElement('span'); a.className = 'amp'; a.setAttribute('data-hero', ''); a.textContent = amp; hero.appendChild(a);
+        const e = document.createElement('em'); e.textContent = amp; card.appendChild(e);
+      }
+      const h = document.createElement('span'); h.setAttribute('data-hero', ''); h.textContent = name; hero.appendChild(h);
+      const c = document.createElement('span'); c.textContent = name; card.appendChild(c);
+    });
+    hero.classList.toggle('is-single', list.length === 1);
+    card.classList.toggle('is-single', list.length === 1);
+  }
+
+  function applySections() {
+    const on = CONFIG.sections || {};
+    $$('[data-section]').forEach(el => { if (on[el.dataset.section] === false) el.remove(); });
+  }
+
+  function render() {
+    applySections();
+    applyTheme();
+    buildView();
+    buildNames();
+    bind();
+    const svg = sealSVG();
+    $('#sealA').innerHTML = svg;
+    $('#sealB').innerHTML = svg;
+    buildGallery();
+    buildLinks();
+  }
+  return { render, view };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   D. SOUND — Web Audio (מסונתז). מתחיל רק אחרי מגע ראשון של המשתמש.
+   ════════════════════════════════════════════════════════════════ */
+const Sound = (() => {
+  let ctx, master, echo, noiseBuf, music, muted = false;
+  const btn = $('#soundBtn');
+
+  function unlock() {
+    if (!CONFIG.audio.enabled) return;
+    if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return; }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = muted ? 0 : CONFIG.audio.volume; master.connect(ctx.destination);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 1.5, ctx.sampleRate);
+    const ch = noiseBuf.getChannelData(0); for (let i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+    // ריח של חלל: השהיה עדינה עם פידבק
+    echo = ctx.createDelay(1); echo.delayTime.value = .27;
+    const fb = ctx.createGain(); fb.gain.value = .33;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3200;
+    echo.connect(lp); lp.connect(fb); fb.connect(echo); lp.connect(master);
+    if (ctx.state === 'suspended') ctx.resume();
+  }
+
+  function noise({ dur = .3, type = 'bandpass', f0 = 1000, f1 = f0, q = 1, peak = .2, attack = .01, at = 0 }) {
+    if (!ctx || muted) return;
+    const t = ctx.currentTime + at;
+    const src = ctx.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+    const f = ctx.createBiquadFilter(); f.type = type; f.Q.value = q;
+    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(Math.max(30, f1), t + dur);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + attack); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    src.connect(f); f.connect(g); g.connect(master);
+    src.start(t, Math.random() * .6); src.stop(t + dur + .05);
+  }
+
+  function tone({ f = 440, f1 = f, at = 0, dur = 2, peak = .08, type = 'sine', send = 0 }) {
+    if (!ctx || muted) return;
+    const t = ctx.currentTime + at;
+    const o = ctx.createOscillator(); o.type = type;
+    o.frequency.setValueAtTime(f, t); if (f1 !== f) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .012); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); g.connect(master);
+    if (send) { const s = ctx.createGain(); s.gain.value = send; g.connect(s); s.connect(echo); }
+    o.start(t); o.stop(t + dur + .05);
+  }
+
+  return {
+    unlock,
+    crack() {
+      noise({ dur: .09, type: 'highpass', f0: 2400, peak: .5, attack: .002 });
+      tone({ f: 170, f1: 55, dur: .14, peak: .32 });
+      for (let i = 0; i < 3; i++) noise({ dur: .04, type: 'bandpass', f0: 3200 + i * 500, q: 3, peak: .16, attack: .003, at: .05 + Math.random() * .14 });
+    },
+    flap()  { noise({ dur: .8, f0: 500, f1: 2600, q: .8, peak: .15, attack: .3 }); },
+    slide() { noise({ dur: 1.15, f0: 2400, f1: 650, q: .6, peak: .085, attack: .35 }); },
+    chime() {
+      [659.25, 830.61, 987.77, 1318.5].forEach((f, i) => {
+        tone({ f, at: i * .16, dur: 2.8, peak: .075, send: .5 });
+        tone({ f: f * 2.76, at: i * .16, dur: 1.2, peak: .012, send: .3 });
+      });
+    },
+    startMusic() {
+      if (!CONFIG.audio.enabled || !CONFIG.audio.musicSrc || music) return;
+      music = new Audio(CONFIG.audio.musicSrc); music.loop = true; music.volume = CONFIG.audio.musicVolume; music.muted = muted;
+      music.play().catch(() => {});
+    },
+    setMuted(m) {
+      muted = m;
+      btn.setAttribute('aria-pressed', String(m));
+      btn.setAttribute('aria-label', m ? CONFIG.texts.aria.unmute : CONFIG.texts.aria.mute);
+      if (ctx) master.gain.setTargetAtTime(m ? 0 : CONFIG.audio.volume, ctx.currentTime, .05);
+      if (music) music.muted = m;
+    },
+    toggle() { unlock(); this.setMuted(!muted); }
+  };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   E. ENVELOPE — האנימציה הקולנועית (GSAP)
+   ════════════════════════════════════════════════════════════════ */
+const Envelope = (() => {
+  const el = {
+    scene: $('#scene'), wrap: $('#envWrap'), mark: $('#sceneMark'), hint: $('#hint'),
+    shadow: $('#envShadow'), back: $('#envBack'), glow: $('#envGlow'), front: $('#envFront'),
+    flapWrap: $('#flapWrap'), flap: $('#flap'), flapShadow: $('#flapShadow'),
+    cardWin: $('#cardWindow'), card: $('#card'), cardFace: $('#cardFace'),
+    seal: $('#seal'), sealA: $('#sealA'), sealB: $('#sealB'), sealRing: $('#sealRing'),
+    sealFlash: $('#sealFlash'), sealShine: $('#sealShine'),
+    sheet: $('#sheet'), frame: $('#frame'), scroll: $('#scroll')
+  };
+  const envParts = () => [el.back, el.front, el.flapWrap, el.flapShadow, el.shadow, el.glow, el.seal];
+  let idle = null, opened = false, busy = false;
+
+  /* כניסת המעטפה + אנימציית חיים עדינה */
+  function intro() {
+    document.body.classList.remove('is-loading');
+    if (!hasGsap || reduced) return;
+    gsap.set(el.flap, { transformOrigin: '50% 0%', transformPerspective: 900 });
+    gsap.from(el.wrap,  { y: 56, opacity: 0, rotationX: -22, scale: .95, transformPerspective: 1200, duration: 1.5, ease: 'expo.out', delay: .1,
+      onComplete: startIdle });
+    gsap.from(el.mark,  { opacity: 0, y: -10, duration: 1.2, ease: 'power2.out', delay: .5 });
+    gsap.from(el.hint,  { opacity: 0, duration: 1.2, delay: 1.2 });
+  }
+
+  function startIdle() {
+    idle = gsap.timeline({ repeat: -1, yoyo: true, defaults: { ease: 'sine.inOut', duration: 3.4 } })
+      .to(el.wrap,   { y: -6, rotation: .5 }, 0)
+      .to(el.shadow, { scaleX: .93, opacity: .62 }, 0);
+  }
+
+  function measure() {
+    const vw = el.scene.clientWidth, vh = el.scene.clientHeight;
+    const H = el.wrap.offsetHeight;
+    const cardH = el.card.offsetHeight, cardTop0 = el.card.offsetTop;
+    const Etop = (vh - H) / 2;
+    const Cf = vh * .47;                                  // מרכז הכרטיס בסוף
+    const R = cardH * .74;                                // כמה הכרטיס עולה מהמעטפה בשלב הראשון
+    const s = Math.min(1, (vh * .86) / cardH);            // התאמה למסכים נמוכים
+    const Cy = H / 2;
+    const shift = Cf - Etop - Cy - (cardTop0 - R + cardH / 2 - Cy) * s;
+    const cardFinalY = Cf - (Etop + cardTop0 + cardH / 2);
+    const D = Math.max(H * 1.25, Cf + cardH / 2 + 18 - Etop);
+    return { vw, vh, R, s, shift, cardFinalY, D };
+  }
+
+  function crumbs() {
+    for (let i = 0; i < 14; i++) {
+      const c = document.createElement('i'); c.className = 'crumb';
+      const sz = 2 + Math.random() * 4; c.style.width = c.style.height = sz + 'px';
+      el.seal.appendChild(c);
+      const dir = (i % 2 ? 1 : -1), dx = dir * (24 + Math.random() * 70), dur = .7 + Math.random() * .5;
+      gsap.set(c, { xPercent: -50, yPercent: -50, rotation: Math.random() * 90 });
+      gsap.to(c, { x: dx, rotation: '+=' + (Math.random() * 300 - 150), duration: dur, ease: 'power1.out' });
+      gsap.to(c, { y: -18 + Math.random() * 20 + 70 * Math.random(), duration: dur, ease: 'power2.in' });
+      gsap.to(c, { autoAlpha: 0, duration: .25, delay: dur - .25, onComplete: () => c.remove() });
+    }
+  }
+
+  function open() {
+    if (opened || busy) return;
+    busy = true;
+    Sound.unlock();                               // חייב לרוץ סינכרונית בתוך המגע
+    el.scene.classList.add('is-opening');
+    el.wrap.removeAttribute('tabindex'); el.wrap.removeAttribute('role');
+    if (idle) idle.kill();
+
+    if (!hasGsap) return plainOpen();
+    if (reduced) return reducedOpen();
+
+    const m = measure();
+    const parts = envParts();
+    gsap.set(el.wrap, { transformPerspective: 1400 });
+
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    /* 1 — לחיצה ושבירת החותמת */
+    tl.to(el.hint, { autoAlpha: 0, y: 8, duration: .35 }, 0)
+      .to(el.mark, { autoAlpha: 0, duration: .6, ease: 'power1.in' }, .1)
+      .to(el.wrap, { y: 0, rotation: 0, duration: .4 }, 0)
+      .to(el.shadow, { scaleX: 1, opacity: 1, duration: .4 }, 0)
+      .to(el.seal, { scale: .9, duration: .14, ease: 'power2.in' }, .05)
+      .to([el.sealShine, el.sealRing], { autoAlpha: 0, duration: .12 }, .05)
+      .add(() => { Sound.crack(); crumbs(); }, .19)
+      .fromTo(el.sealFlash, { autoAlpha: .9, scale: .5 }, { autoAlpha: 0, scale: 2.3, duration: .8 }, .19)
+      .to(el.sealA, { x: -30, y: 54, rotation: -40, autoAlpha: 0, duration: .9, ease: 'power2.in' }, .19)
+      .to(el.sealB, { x: 30,  y: 60, rotation: 44,  autoAlpha: 0, duration: .9, ease: 'power2.in' }, .19)
+
+    /* 2 — המעטפה מוטה לעומק, הדש נפתח */
+      .to(el.wrap, { rotationX: 12, scale: m.s, y: m.shift, duration: 1.6, ease: 'power3.inOut' }, .4)
+      .add(() => Sound.flap(), .62)
+      .to(el.flapShadow, { autoAlpha: 0, duration: .5, ease: 'power1.in' }, .62)
+      .to(el.flap, { rotationX: 180, duration: 1.1, ease: 'power2.inOut' }, .62)
+      .set(el.flapWrap, { zIndex: 1 }, 1.17)                     // הדש עובר מאחורי הכרטיס
+      .to(el.glow, { autoAlpha: 1, duration: 1, ease: 'sine.inOut' }, 1.0)
+
+    /* 3 — הכרטיס עולה מהמעטפה */
+      .add(() => Sound.slide(), 1.7)
+      .to(el.card, { y: -m.R, duration: 1.3, ease: 'power3.inOut' }, 1.7)
+      .set(el.cardWin, { clipPath: 'inset(-300% -30% -300% -30%)' }, 3.05)
+
+    /* 4 — המעטפה נשמטת, הכרטיס נשאר במקומו */
+      .to(parts, { y: m.D, duration: 1.05, ease: 'power2.in' }, 3.05)
+      .to(parts, { autoAlpha: 0, duration: .3, ease: 'power1.in' }, 3.75)
+      .to(el.wrap, { y: 0, rotationX: 0, scale: 1, duration: 1.05, ease: 'power3.inOut' }, 3.05)
+      .to(el.card, { y: m.cardFinalY, duration: 1.05, ease: 'power3.inOut' }, 3.05)
+      .to(el.glow, { autoAlpha: 0, duration: .6 }, 3.3)
+      .call(reveal, null, 4.05);
+  }
+
+  /* 5 — הכרטיס מתרחב למסך: ה-sheet נפרש מתוך מלבן הכרטיס */
+  function reveal() {
+    const r = el.card.getBoundingClientRect();
+    const vw = el.scene.clientWidth, vh = el.scene.clientHeight;
+    const start = `inset(${r.top}px ${vw - r.right}px ${vh - r.bottom}px ${r.left}px round 3px)`;
+    const heroItems = $$('[data-hero]', el.sheet);
+
+    gsap.set(el.sheet, { visibility: 'visible' });
+    gsap.set(heroItems, { autoAlpha: 0, y: 20 });
+    Sound.chime();
+
+    gsap.timeline({ onComplete: finish })
+      .to(el.card, { boxShadow: '0 0 0 rgba(0,0,0,0)', duration: .5, ease: 'power1.out' }, 0)
+      // fromTo עם מחרוזות מפורשות: הדפדפן מקצר inset() כשצדדים שווים ו-GSAP היה מפענח לא נכון
+      .fromTo(el.sheet, { clipPath: start }, { clipPath: 'inset(0px 0px 0px 0px round 0px)', duration: 1.3, ease: 'power3.inOut', immediateRender: true }, 0)
+      .to(el.cardFace, { autoAlpha: 0, duration: .6, ease: 'power1.in' }, .3)
+      .to(heroItems, { autoAlpha: 1, y: 0, duration: 1.2, stagger: .13, ease: 'power3.out' }, .85)
+      .to(el.frame, { opacity: 1, duration: 1.4, ease: 'power1.out' }, 1.0)
+      .to(el.card, { autoAlpha: 0, duration: .4 }, 1.25)
+      .add(enable, 1.35);
+  }
+
+  function enable() {
+    el.sheet.classList.add('is-ready');
+    el.sheet.inert = false;
+    el.sheet.setAttribute('aria-hidden', 'false');
+    Dust.start(); Countdown.start(); Sound.startMusic();
+  }
+
+  function finish() {
+    opened = true;
+    el.scene.style.display = 'none';
+    el.scroll.focus({ preventScroll: true });
+  }
+
+  function reducedOpen() {
+    gsap.to(el.scene, { autoAlpha: 0, duration: .6 });
+    gsap.set(el.sheet, { visibility: 'visible', clipPath: 'inset(0px)', opacity: 0 });
+    gsap.to(el.sheet, { opacity: 1, duration: .8, delay: .3, onComplete: () => { enable(); finish(); } });
+    Sound.chime();
+  }
+
+  function plainOpen() {
+    el.scene.style.display = 'none';
+    el.sheet.style.visibility = 'visible'; el.sheet.style.clipPath = 'none';
+    el.frame.style.opacity = 1;
+    enable(); finish();
+  }
+
+  function init() {
+    const go = e => { e.preventDefault(); open(); };
+    el.wrap.addEventListener('click', go);
+    el.wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') go(e); });
+    (document.fonts && document.fonts.ready ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1600))]) : Promise.resolve())
+      .then(intro);
+  }
+  return { init };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   F. DUST — חלקיקי אבק זהב עדינים אחרי הפתיחה
+   ════════════════════════════════════════════════════════════════ */
+const Dust = (() => {
+  const cv = $('#dust'), ctx = cv.getContext('2d');
+  let w, h, dpr, parts = [], sprite, raf = 0, last = 0, running = false;
+
+  function rgb(css) {
+    const c = document.createElement('canvas').getContext('2d'); c.fillStyle = css;
+    const s = c.fillStyle;
+    if (s[0] === '#') return [1, 3, 5].map(i => parseInt(s.substr(i, 2), 16));
+    return (s.match(/[\d.]+/g) || [220, 194, 135]).slice(0, 3).map(Number);
+  }
+  function makeSprite() {
+    const [r, g, b] = rgb(getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#b8934a');
+    const s = document.createElement('canvas'); s.width = s.height = 48;
+    const c = s.getContext('2d'), gr = c.createRadialGradient(24, 24, 0, 24, 24, 24);
+    gr.addColorStop(0, `rgba(${r},${g},${b},.95)`); gr.addColorStop(.4, `rgba(${r},${g},${b},.28)`); gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    c.fillStyle = gr; c.fillRect(0, 0, 48, 48); return s;
+  }
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.max(20, Math.min(56, Math.round(w * h / 20000)));
+    parts = Array.from({ length: n }, () => ({
+      x: Math.random() * w, y: Math.random() * h, r: 2.5 + Math.random() * 6,
+      v: 6 + Math.random() * 16, ph: Math.random() * 6.28, a: .25 + Math.random() * .5
+    }));
+  }
+  function frame(t) {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(.05, (t - last) / 1000 || .016); last = t;
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.y -= p.v * dt; p.x += Math.sin(t / 1800 + p.ph) * .18;
+      if (p.y < -12) { p.y = h + 12; p.x = Math.random() * w; }
+      ctx.globalAlpha = p.a * (.55 + .45 * Math.sin(t / 900 + p.ph));
+      ctx.drawImage(sprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+    }
+  }
+  return {
+    start() {
+      if (running || reduced) return;
+      running = true; sprite = makeSprite(); resize();
+      addEventListener('resize', resize);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { cancelAnimationFrame(raf); raf = 0; } else if (!raf) raf = requestAnimationFrame(frame);
+      });
+      raf = requestAnimationFrame(frame);
+    }
+  };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   G. COUNTDOWN
+   ════════════════════════════════════════════════════════════════ */
+const Countdown = (() => {
+  const { date, time, tzOffset } = CONFIG.event;
+  /* מפענח מספרים (גם 2026-1-10 בלי אפס מוביל) ולא מחרוזת תאריך, שהדפדפן דוחה כשאין אפסים */
+  const target = (() => {
+    const [y, mo, dd] = date.split('-').map(Number), [hh, mi] = time.split(':').map(Number);
+    const tz = /^([+-])(\d{1,2}):?(\d{2})?$/.exec(tzOffset || '+00:00');
+    const off = tz ? (tz[1] === '-' ? -1 : 1) * (Number(tz[2]) * 60 + Number(tz[3] || 0)) : 0;
+    return Date.UTC(y, mo - 1, dd, hh, mi) - off * 60000;
+  })();
+  const d = $('#cdD'), h = $('#cdH'), m = $('#cdM'), s = $('#cdS');
+  if (!d) return { start() {} };
+  let timer = 0, lastS = '';
+
+  function tick() {
+    const diff = target - Date.now();
+    if (isNaN(target) || diff <= 0) {
+      $('#cd').hidden = true; const done = $('#cdDone'); done.hidden = false; done.textContent = CONFIG.texts.countdownDone;
+      clearInterval(timer); return;
+    }
+    const sec = Math.floor(diff / 1000);
+    d.textContent = Math.floor(sec / 86400);
+    h.textContent = pad(Math.floor(sec % 86400 / 3600));
+    m.textContent = pad(Math.floor(sec % 3600 / 60));
+    const ss = pad(sec % 60);
+    if (ss !== lastS) {
+      s.textContent = ss; lastS = ss;
+      if (hasGsap && !reduced) gsap.fromTo(s, { y: 6, opacity: .25 }, { y: 0, opacity: 1, duration: .45, ease: 'power2.out', overwrite: true });
+    }
+  }
+  return { start() { if (timer) return; tick(); timer = setInterval(tick, 1000); } };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   H. UI — גלילה, חשיפה, תפריט מיקום, אישור הגעה
+   ════════════════════════════════════════════════════════════════ */
+const UI = (() => {
+  const scroll = $('#scroll');
+
+  function reveals() {
+    const sheet = $('#sheet'); sheet.classList.add('js-reveal');
+    const items = $$('[data-reveal]', sheet);
+    if (!('IntersectionObserver' in window)) { items.forEach(i => i.classList.add('is-in')); return; }
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }), { root: scroll, threshold: .15, rootMargin: '0px 0px -6% 0px' });
+    items.forEach((el, i) => { el.style.setProperty('--d', (i % 3) * .08 + 's'); io.observe(el); });
+  }
+
+  function scrollLinks() {
+    $$('[data-scroll-to]').forEach(b => b.addEventListener('click', () => {
+      const t = document.getElementById(b.dataset.scrollTo);
+      if (t) t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    }));
+  }
+
+  function mapMenu() {
+    const menu = $('#mapMenu'); let lastFocus;
+    const open = () => { lastFocus = document.activeElement; menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false'); setTimeout(() => $('.menu-item', menu).focus(), 60); };
+    const close = () => { menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true'); lastFocus && lastFocus.focus && lastFocus.focus(); };
+    $$('[data-open-map]').forEach(b => b.addEventListener('click', open));
+    $$('[data-close-map]').forEach(b => b.addEventListener('click', close));
+    $$('.menu-item', menu).forEach(a => a.addEventListener('click', () => setTimeout(close, 200)));
+    addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
+  }
+
+  function rsvp() {
+    if (!$('#rsvpForm')) return;
+    const form = $('#rsvpForm'), out = $('#guestsOut'), field = $('#guestsField'), err = $('#rsvpError');
+    const max = CONFIG.rsvp.maxGuests; let guests = CONFIG.rsvp.defaultGuests;
+    const paint = () => out.textContent = guests;
+    paint();
+    $$('[data-step]', form).forEach(b => b.addEventListener('click', () => {
+      guests = Math.min(max, Math.max(1, guests + Number(b.dataset.step))); paint();
+    }));
+    $$('input[name=attending]', form).forEach(r => r.addEventListener('change', () => { field.hidden = r.value === 'no' && r.checked; }));
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value.trim(), yes = form.attending.value === 'yes', note = form.note.value.trim();
+      if (!name) { err.hidden = false; err.textContent = CONFIG.texts.rsvpNameError; form.name.focus(); return; }
+      err.hidden = true;
+      const M = CONFIG.texts.msg;
+      const msg = [
+        `${yes ? M.yes : M.no} ${CONFIG.event.title}.`,
+        `${M.name}: ${name}`, yes ? `${M.guests}: ${guests}` : '', note ? `${M.note}: ${note}` : ''
+      ].filter(Boolean).join('\n');
+      const { whatsapp, email } = CONFIG.rsvp;
+      let href = '';
+      if (whatsapp) href = `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
+      else if (email) href = `mailto:${email}?subject=${encodeURIComponent(CONFIG.texts.msg.subject + ': ' + CONFIG.event.title)}&body=${encodeURIComponent(msg)}`;
+      if (href) { const a = document.createElement('a'); a.href = href; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
+
+      $('#rsvpThanksText').textContent = yes ? CONFIG.texts.thanksYes : CONFIG.texts.thanksNo;
+      form.hidden = true; $('#rsvpThanks').hidden = false;
+      if (hasGsap && !reduced) gsap.from('#rsvpThanks', { opacity: 0, y: 14, duration: 1, ease: 'power3.out' });
+    });
+  }
+
+  function init() {
+    $('#soundBtn').addEventListener('click', () => Sound.toggle());
+    reveals(); scrollLinks(); mapMenu(); rsvp();
+  }
+  return { init };
+})();
+
+
+/* ════════════════════════════════════════════════════════════════
+   I. BOOT
+   ════════════════════════════════════════════════════════════════ */
+Content.render();
+UI.init();
+Envelope.init();
+</script>
+</body>
+</html>
